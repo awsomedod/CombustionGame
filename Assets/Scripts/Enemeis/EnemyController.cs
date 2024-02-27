@@ -47,7 +47,7 @@ public class EnemyController : MonoBehaviour
 	#endregion
 
 	#region Collision Methods
-	private void OnCollisionEnter2D(Collision2D other) {
+	private void OnCollisionStay2D(Collision2D other) {
 		if (other.gameObject.CompareTag("Player")) {
 			Debug.Log("Hit Player");
 			other.gameObject.GetComponent<PlayerMovement>().DecreaseHealth(m_Damage);

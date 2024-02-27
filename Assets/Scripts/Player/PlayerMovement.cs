@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
 	#region Cached References
 	private Animator cr_Anim;
 	private Rigidbody2D cr_Rb;
+	private SpriteRenderer cr_Sr;
 	#endregion
 
 	#region Public Variables
@@ -56,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		cr_Anim = GetComponentInChildren<Animator>();
 		cr_Rb = GetComponent<Rigidbody2D>();
+		cr_Sr = GetComponentInChildren<SpriteRenderer>();
 		p_FacingDirection = transform.forward;		
 	}
 	#endregion
@@ -77,6 +79,7 @@ public class PlayerMovement : MonoBehaviour
 
 			if (attack.IsReady()) {
 				if (Input.GetButtonDown(attack.Button)) {
+					cr_Anim.SetTrigger("Attack");
 					p_FrozenTimer = attack.FrozenTime;
 					StartCoroutine(UseAttack(attack));
 					break;
@@ -112,31 +115,33 @@ public class PlayerMovement : MonoBehaviour
 		// }
 		if (Input.GetKey(KeyCode.UpArrow))
 		{
+			cr_Anim.SetBool("Running", true);
 			p_FacingDirection = new Vector2(0, 1);
 			p_Speed = movespeed;
 		}
 		else if (Input.GetKey(KeyCode.RightArrow))
 		{
-			cr_Anim.SetBool("Run", true);
+			cr_Anim.SetBool("Running", true);
 			p_FacingDirection = new Vector2(1, 0);
 			p_Speed = movespeed;
+			cr_Sr.flipX = false;
 		}
 		else if (Input.GetKey(KeyCode.LeftArrow))
 		{
-			cr_Anim.SetBool("Run", true);
+			cr_Anim.SetBool("Running", true);
 			p_FacingDirection = new Vector2(-1, 0);
 			p_Speed = movespeed;
+			cr_Sr.flipX = true;
 		}
 		else if (Input.GetKey(KeyCode.DownArrow))
 		{
-			//cr_Anim.SetBool("WalkDown", true);
+			cr_Anim.SetBool("Running", true);
 			p_FacingDirection = new Vector2(0, -1);
 			p_Speed = movespeed;
 		} else
 		{
 			p_Speed = 0;
-			cr_Anim.SetBool("Idle", true);
-			cr_Anim.SetBool("Run", false);
+			cr_Anim.SetBool("Running", false);
 		}
 		cr_Rb.velocity = p_FacingDirection * p_Speed;
 	}
