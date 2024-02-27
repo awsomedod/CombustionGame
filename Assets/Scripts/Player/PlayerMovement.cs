@@ -117,21 +117,26 @@ public class PlayerMovement : MonoBehaviour
 		}
 		else if (Input.GetKey(KeyCode.RightArrow))
 		{
+			cr_Anim.SetBool("Run", true);
 			p_FacingDirection = new Vector2(1, 0);
 			p_Speed = movespeed;
 		}
 		else if (Input.GetKey(KeyCode.LeftArrow))
 		{
+			cr_Anim.SetBool("Run", true);
 			p_FacingDirection = new Vector2(-1, 0);
 			p_Speed = movespeed;
 		}
 		else if (Input.GetKey(KeyCode.DownArrow))
 		{
+			//cr_Anim.SetBool("WalkDown", true);
 			p_FacingDirection = new Vector2(0, -1);
 			p_Speed = movespeed;
 		} else
 		{
 			p_Speed = 0;
+			cr_Anim.SetBool("Idle", true);
+			cr_Anim.SetBool("Run", false);
 		}
 		cr_Rb.velocity = p_FacingDirection * p_Speed;
 	}
@@ -151,6 +156,7 @@ public class PlayerMovement : MonoBehaviour
 	#region Attack Methods
 	private IEnumerator UseAttack(PlayerAttackInfo attack) {
 
+		cr_Anim.SetBool("AttackR", true);
 		cr_Anim.SetTrigger(attack.TriggerName);
 		yield return new WaitForSeconds(attack.WindUpTime);
 
@@ -161,6 +167,7 @@ public class PlayerMovement : MonoBehaviour
 		yield return new WaitForSeconds(attack.Cooldown);
 
 		attack.ResetCooldown();
+		cr_Anim.SetBool("AttackR", false);
 	}
 
 	public Vector2 getAttackOffset(PlayerAttackInfo attack) {
