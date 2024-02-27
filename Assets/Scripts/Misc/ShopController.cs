@@ -45,6 +45,34 @@ public class ShopController : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
+
+    public void IncreaseHealth()
+    {
+        if (!PlayerPrefs.HasKey("Health"))
+        {
+            PlayerPrefs.SetInt("Health", 105);
+        }
+        else
+        {
+            int cur = PlayerPrefs.GetInt("Health");
+            PlayerPrefs.SetInt("Health", cur+5);
+        }
+		Debug.Log(PlayerPrefs.GetInt("Health"));
+    }
+
+    public void IncreaseSpeed()
+    {
+        if (!PlayerPrefs.HasKey("Speed"))
+        {
+            PlayerPrefs.SetInt("Speed", 105);
+        }
+        else
+        {
+            int cur = PlayerPrefs.GetInt("Speed");
+            PlayerPrefs.SetInt("Speed", cur + 5);
+        }
+		Debug.Log(PlayerPrefs.GetInt("Speed"));
+    }
     #endregion
 
     #region Coin Methods
