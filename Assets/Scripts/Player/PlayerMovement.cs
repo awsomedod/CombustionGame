@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
 	#region Editor Variables
 	[SerializeField]
-	[Tooltip("How fast the player can move")]
+	[Tooltip("How fast the player can move, by default.")]
 	public float movespeed;
 
 	[SerializeField]
@@ -14,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
 	private PlayerAttackInfo[] m_Attacks;
 
 	[SerializeField]
-	[Tooltip("Amount of health the player starts with.")]
+	[Tooltip("Amount of health the player starts with, by default.")]
 	private int m_MaxHealth;
 	#endregion
 
@@ -33,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
 	private float p_CurHealth;
 	//In order to do anything we cannot be frozen (the timer must be 0)
 	private float p_FrozenTimer;
+	[SerializeField]
 	private float p_Speed;
 	private Vector2 p_FacingDirection;
 	#endregion
@@ -40,8 +42,17 @@ public class PlayerMovement : MonoBehaviour
 	#region Initialization
 	private void Awake() {
 		p_FrozenTimer = 0;
-		p_CurHealth = m_MaxHealth;
-		
+		if (!PlayerPrefs.HasKey("Health"))
+		{
+			PlayerPrefs.SetInt("Health", m_MaxHealth);
+			p_CurHealth = m_MaxHealth;
+		}
+		else
+		{
+			p_CurHealth = PlayerPrefs.GetInt("Health");
+		}
+		Debug.Log(PlayerPrefs.GetInt("Health"));
+
 		for (int i = 0; i < m_Attacks.Length; i++) {
 			PlayerAttackInfo attack = m_Attacks[i];
 			attack.Cooldown = 0;
@@ -50,7 +61,16 @@ public class PlayerMovement : MonoBehaviour
 				Debug.LogError(attack.AttackName + " has a windup time that is arger than the amount of time that the player is frozen for");
 			}
 		}
-		p_Speed = movespeed;
+		if (!PlayerPrefs.HasKey("Speed"))
+		{
+			PlayerPrefs.SetFloat("Speed", movespeed);
+			p_Speed = movespeed;
+		}
+		else
+		{
+			p_Speed = PlayerPrefs.GetFloat("Speed");
+		}
+		Debug.Log(PlayerPrefs.GetFloat("Speed"));
 	}
 
 	void Start()
@@ -117,27 +137,27 @@ public class PlayerMovement : MonoBehaviour
 		{
 			cr_Anim.SetBool("Running", true);
 			p_FacingDirection = new Vector2(0, 1);
-			p_Speed = movespeed;
+			p_Speed = PlayerPrefs.GetFloat("Speed");
 		}
 		else if (Input.GetKey(KeyCode.RightArrow))
 		{
 			cr_Anim.SetBool("Running", true);
 			p_FacingDirection = new Vector2(1, 0);
-			p_Speed = movespeed;
+			p_Speed = PlayerPrefs.GetFloat("Speed");
 			cr_Sr.flipX = false;
 		}
 		else if (Input.GetKey(KeyCode.LeftArrow))
 		{
 			cr_Anim.SetBool("Running", true);
 			p_FacingDirection = new Vector2(-1, 0);
-			p_Speed = movespeed;
+			p_Speed = PlayerPrefs.GetFloat("Speed");
 			cr_Sr.flipX = true;
 		}
 		else if (Input.GetKey(KeyCode.DownArrow))
 		{
 			cr_Anim.SetBool("Running", true);
 			p_FacingDirection = new Vector2(0, -1);
-			p_Speed = movespeed;
+			p_Speed = PlayerPrefs.GetFloat("Speed");
 		} else
 		{
 			p_Speed = 0;
@@ -152,7 +172,7 @@ public class PlayerMovement : MonoBehaviour
 		p_CurHealth -= amount;
 		//m_HUD.UpdateHealth(1.0f * p_CurHealth/ m_MaxHealth);
 		if (p_CurHealth <= 0) {
-			//SceneManager.LoadScene("MainMenu");
+			SceneManager.LoadScene("LoseScene");
 			Debug.Log("DEAD!!!!");
 		}
 	}

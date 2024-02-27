@@ -48,30 +48,38 @@ public class ShopController : MonoBehaviour
 
     public void IncreaseHealth()
     {
+        if (!PlayerPrefs.HasKey("CC") || PlayerPrefs.GetInt("CC") <= 0) return;
         if (!PlayerPrefs.HasKey("Health"))
         {
-            PlayerPrefs.SetInt("Health", 105);
+            PlayerPrefs.SetInt("Health", 525);
         }
         else
         {
             int cur = PlayerPrefs.GetInt("Health");
-            PlayerPrefs.SetInt("Health", cur+5);
+            PlayerPrefs.SetInt("Health", cur+25);
         }
-		Debug.Log(PlayerPrefs.GetInt("Health"));
+        int coins = PlayerPrefs.GetInt("CC");
+        PlayerPrefs.SetInt("CC", coins - 5);
+        UpdateCoins();
+        Debug.Log(PlayerPrefs.GetInt("Health"));
     }
 
     public void IncreaseSpeed()
     {
+        if (!PlayerPrefs.HasKey("CC") || PlayerPrefs.GetInt("CC") <= 0) return;
         if (!PlayerPrefs.HasKey("Speed"))
         {
-            PlayerPrefs.SetInt("Speed", 105);
+            PlayerPrefs.SetFloat("Speed", 105);
         }
         else
         {
-            int cur = PlayerPrefs.GetInt("Speed");
-            PlayerPrefs.SetInt("Speed", cur + 5);
+            float cur = PlayerPrefs.GetFloat("Speed");
+            PlayerPrefs.SetFloat("Speed", cur + 5);
         }
-		Debug.Log(PlayerPrefs.GetInt("Speed"));
+        int coins = PlayerPrefs.GetInt("CC");
+        PlayerPrefs.SetInt("CC", coins - 5);
+        UpdateCoins();
+        Debug.Log(PlayerPrefs.GetFloat("Speed"));
     }
     #endregion
 

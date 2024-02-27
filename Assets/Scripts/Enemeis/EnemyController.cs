@@ -59,6 +59,7 @@ public class EnemyController : MonoBehaviour
 	public void DecreaseHealth(float amount) {
 		p_curHealth -= amount;
 		if (p_curHealth <= 0) {
+			CoinManager.singleton.IncreaseCoins(10);
 			Destroy(gameObject);
 		}
 	}
