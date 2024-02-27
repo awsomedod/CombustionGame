@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Arena.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
+    path: Assets/Scenes/Shop.unity
+    guid: 7022d3c4c4cae4781b7040111fa4140b
+  - enabled: 1
     path: Assets/Scenes/LoseScene.unity
     guid: 30454d0c4d9a749dd833611fa2fe3254
   m_configObjects: {}

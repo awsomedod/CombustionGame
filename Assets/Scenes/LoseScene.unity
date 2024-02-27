@@ -788,8 +788,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2099062785}
-        m_TargetAssemblyTypeName: MainManuController, Assembly-CSharp
-        m_MethodName: Quit
+        m_TargetAssemblyTypeName: LoseSceneController, Assembly-CSharp
+        m_MethodName: MainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1027,7 +1027,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2099062780}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faf6de90a57e549d194f3c3a7306f151, type: 3}
+  m_Script: {fileID: 11500000, guid: 583335beb5f19448fa692f5267e53359, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
