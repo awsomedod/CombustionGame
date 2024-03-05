@@ -27,6 +27,10 @@ public class EnemyController : MonoBehaviour
 	private Transform cr_Player;
 	#endregion
 
+	#region Public Variables
+	public GameObject explosionObj;
+	#endregion
+
 	#region Initialization
 	private void Awake() {
 		p_curHealth = m_MaxHealth;
@@ -59,8 +63,9 @@ public class EnemyController : MonoBehaviour
 	public void DecreaseHealth(float amount) {
 		p_curHealth -= amount;
 		if (p_curHealth <= 0) {
+			Instantiate(explosionObj, transform.position, transform.rotation);
 			CoinManager.singleton.IncreaseCoins(10);
-			Destroy(gameObject);
+			Destroy(this.gameObject);
 		}
 	}
 	#endregion

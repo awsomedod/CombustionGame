@@ -177,6 +177,7 @@ MonoBehaviour:
   m_Speed: 100
   m_Damage: 1
   p_curHealth: 0
+  explosionObj: {fileID: 520996002457499403, guid: 9a5075c3ba4e74012a54c8ea8533b88d, type: 3}
 --- !u!114 &8413798421525910293
 MonoBehaviour:
   m_ObjectHideFlags: 0

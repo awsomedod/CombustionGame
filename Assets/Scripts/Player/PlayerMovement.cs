@@ -174,7 +174,6 @@ public class PlayerMovement : MonoBehaviour
 	public void DecreaseHealth(float amount) {
 		p_CurHealth -= amount;
 		HPSlider.value = p_CurHealth / m_MaxHealth;
-		//m_HUD.UpdateHealth(1.0f * p_CurHealth/ m_MaxHealth);
 		if (p_CurHealth <= 0) {
 			SceneManager.LoadScene("LoseScene");
 			Debug.Log("DEAD!!!!");
