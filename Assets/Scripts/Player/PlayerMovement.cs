@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -27,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
 
 	#region Public Variables
 	public bool feetContact;
+	public Slider HPSlider;
 	#endregion
 
 	#region Private Variables
@@ -71,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
 			p_Speed = PlayerPrefs.GetFloat("Speed");
 		}
 		Debug.Log(PlayerPrefs.GetFloat("Speed"));
+		HPSlider.value = p_CurHealth / m_MaxHealth;
 	}
 
 	void Start()
@@ -170,6 +173,7 @@ public class PlayerMovement : MonoBehaviour
 	#region Health/Dying Methods
 	public void DecreaseHealth(float amount) {
 		p_CurHealth -= amount;
+		HPSlider.value = p_CurHealth / m_MaxHealth;
 		//m_HUD.UpdateHealth(1.0f * p_CurHealth/ m_MaxHealth);
 		if (p_CurHealth <= 0) {
 			SceneManager.LoadScene("LoseScene");
